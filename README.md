@@ -43,10 +43,6 @@ AI-Dynamix is a Team project. This App is intended to be an All-in-one AI Code A
 - Crucially, the integration of the OpenAI API empowers advanced AI functionalities, enabling features like the Code Review Assistant, Automated Documentation Generator, and Test Case Generator.
  
 
-## Tech Stack
-- The project has been divided into four parts namely: Frontend; Backend; Chatbot and Google Cloud Hosting. A Chatbot named "WeatherBot" will be integrated to the Web App/
- 
-
 **Client:** Javascript, HTML, CSS and Bootstrap.
 
  
