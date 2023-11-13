@@ -116,11 +116,9 @@ This project schedule outlines the plan for a 5-day hackathon, focusing on backe
 
   1. Clone the repository to your local machine :
 
-  ```bash
-
-    git clone 
-
-  ```
+```bash
+git clone https://github.com/danielzion/AI-Dynamix.git
+```
 
   
 
