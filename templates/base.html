@@ -55,7 +55,7 @@
 							<li class="menu-item {% if request.path == '/contact' %}current-menu-item{% endif %}"><a href="{% url 'contact' %}">Contact</a></li>
 							<li class="menu-item {% if request.path == '/team' %}current-menu-item{% endif %}"><a href="{% url 'team' %}">Team</a></li>
 							{% if user.is_authenticated %}
-							<li class="menu-item {% if request.path == '/profile' %}current-menu-item{% endif %}"><a href="{% url 'profile' %}">{{ user.username }}</a></li>
+							<li class="menu-item {% if request.path == '/user/profile' %}current-menu-item{% endif %}"><a href="{% url 'user:profile' %}">{{ user.username }}</a></li>
 							
 							<li class="menu-item {% if request.path == '/account/logout' %}current-menu-item{% endif %}"><a href="{% url 'account:logout' %}">Log Out</a></li>
 							{% else %}
