@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'account',
     'user',
     'core',
+    'community',
 ]
 
 MIDDLEWARE = [
@@ -129,4 +130,4 @@ MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'index'
-LOGIN_URL = 'accounts:login'
+LOGIN_URL = 'account:login'
