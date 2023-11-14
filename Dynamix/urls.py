@@ -11,10 +11,10 @@ urlpatterns = [
     path('about', about, name='about'),
     path('team', team, name='team'),
     path('gallery', gallery, name='gallery'),
-    path('services', services, name='services'),
     path('account/', include('account.urls')),
     path('user/', include('user.urls')),
     path('core/', include('core.urls')),
+    path('community/', include('community.urls')),
 
 ]
 
