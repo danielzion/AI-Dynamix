@@ -21,11 +21,11 @@ class OpenAICommandForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'prompt': forms.CharField(widget=forms.Textarea(attrs={'id': 'prompt'})),
             'response': forms.CharField(widget=forms.Textarea(attrs={'id': 'response'})),
-            'version': forms.TextInput(attrs={'placeholder':'Version *', 'class': 'form-control form-control-lg form-control-a'}),
+            'version': forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
             'title': 'Title',
-            'prompt': 'Prompt',
+            'prompt': 'Code',
             'responnse': 'Response',
             'version': 'Version'
         }
