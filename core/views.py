@@ -9,7 +9,6 @@ import openai
 from .forms import OpenAICommandForm
 from .models import OpenAICommand
 
-
 from decouple import config
 from dotenv import load_dotenv
 
@@ -19,7 +18,6 @@ load_dotenv()
 # from .secret_key import API_KEY
 # loading the API key from the secret_key file
 openai.api_key = config("OPENAI_KEY")
-
 
 
 # Create your views here.
@@ -46,7 +44,6 @@ def openai_command(prompt, template, category):
 
 
 def codehub(request):
-        
     template = 'core/codehub.html'
     extra_prompt = "Review the provided software code and perform refactoring, debugging, code duplicate detection, code security analysis, code review summarization, and comments using the AI-Powered Code Review Assistant with the OpenAI API. Additionally, integrate insights from a knowledge base by linking to relevant documentation and articles for a thorough and improved code assessment."
     # checking if the request method is POST
@@ -67,8 +64,9 @@ def codehub(request):
         }
         # this will render when there is no request POST or after every POST request
         return render(request, template, context)
-    
+
     return render(request, template)
+
 
 def automate(request):
     template = 'core/automate.html'
@@ -85,33 +83,64 @@ def automate(request):
     else:
         # this will render when there is no request POST or after every POST request
         return render(request, template)
-    
+
     return render(request, template)
 
-def tester(request):
 
+def tester(request):
     template = 'core/tester.html'
     extra_prompt = "Review the provided software code and generate thorough and exhaustive test cases using the Automated Test Case Generator with the OpenAI API. Employ dynamic test data generation, an AI-based test oracle, test case documentation, randomized testing, stateful test generator, feedback loop with developers, and adversarial testing to enhance testing procedures and ensure comprehensive test coverage."
+    context = {}
     # checking if the request method is POST
     if request.method == 'POST':
         # getting prompt data from the form
         prompt = request.POST.get('prompt')
 
-        prompt = extra_prompt + ' ' + prompt
+        client = openai.OpenAI()
+        client.api_key = config("OPENAI_KEY")
 
-        openai_command(request, prompt, template, 'Tester')
+        response = client.chat.completions.create(
+            model="gpt-4-1106-preview",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You will be provided with related pieces of Python code, and your task is to write unit tests for it wherever possible. Infer the purpose of the code as best as you can."
+                },
+                {
+                    "role": "user",
+                    "content": "```py\nfrom math_operations import add, subtract\nfrom string_operations import reverse_string\n\ndef main():\n    # Example usage of imported functions\n    result_add = add(5, 3)\n    result_subtract = subtract(10, 4)\n    reversed_string = reverse_string(\"hello\")\n\n    print(\"Addition result:\", result_add)\n    print(\"Subtraction result:\", result_subtract)\n    print(\"Reversed string:\", reversed_string)\n\nif __name__ == \"__main__\":\n    main()\n\n```\n\n```py\ndef reverse_string(s):\n    return s[::-1]\n\ndef concatenate_strings(s1, s2):\n    return s1 + s2\n\n```\n\n```py\ndef add(a, b):\n    return a + b\n\ndef subtract(a, b):\n    return a - b\n\ndef multiply(a, b):\n    return a * b\n\ndef divide(a, b):\n    if b == 0:\n        raise ValueError(\"Cannot divide by zero\")\n    return a / b\n\n```"
+                },
+                {
+                    "role": "assistant",
+                    "content": "The provided Python code consists of several functions that perform basic mathematical operations (addition, subtraction, multiplication, and division) and string operations (reversing a string and concatenating two strings). \n\nHere are the unit tests for these functions:\n\n```py\nimport unittest\nfrom math_operations import add, subtract, multiply, divide\nfrom string_operations import reverse_string, concatenate_strings\n\nclass TestMathOperations(unittest.TestCase):\n    def test_add(self):\n        self.assertEqual(add(5, 3), 8)\n        self.assertEqual(add(-1, 1), 0)\n        self.assertEqual(add(0, 0), 0)\n\n    def test_subtract(self):\n        self.assertEqual(subtract(10, 4), 6)\n        self.assertEqual(subtract(-1, 1), -2)\n        self.assertEqual(subtract(0, 0), 0)\n\n    def test_multiply(self):\n        self.assertEqual(multiply(5, 3), 15)\n        self.assertEqual(multiply(-1, 1), -1)\n        self.assertEqual(multiply(0, 0), 0)\n\n    def test_divide(self):\n        self.assertEqual(divide(10, 2), 5)\n        self.assertEqual(divide(-1, 1), -1)\n        with self.assertRaises(ValueError):\n            divide(10, 0)\n\nclass TestStringOperations(unittest.TestCase):\n    def test_reverse_string(self):\n        self.assertEqual(reverse_string(\"hello\"), \"olleh\")\n        self.assertEqual(reverse_string(\"Python\"), \"nohtyP\")\n        self.assertEqual(reverse_string(\"\"), \"\")\n\n    def test_concatenate_strings(self):\n        self.assertEqual(concatenate_strings(\"hello\", \" world\"), \"hello world\")\n        self.assertEqual(concatenate_strings(\"Python\", \" programming\"), \"Python programming\")\n        self.assertEqual(concatenate_strings(\"\", \"\"), \"\")\n\nif __name__ == \"__main__\":\n    unittest.main()\n```\n\nThese tests check the correctness of the functions by comparing the actual output of the functions with the expected output for a given input."
+                },
+                {
+                    "role": "user",
+                    "content": f'```\n{prompt}```'
+                }
+            ],
+            temperature=0,
+            max_tokens=1024,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+
+        # Add the response to the context
+        context['response'] = response
+        context['last_message'] = response.choices[0].message.content
+
     # this runs if the request method is GET
     else:
-        # this will render when there is no request POST or after every POST request
-        return render(request, template)
-    
-    return render(request, template)
+        code_form = OpenAICommandForm(instance=request.user)
 
+        context['code_form'] = code_form
+
+    return render(request, template, context)
 
 # this is the view for handling errors
 def error_handler(request):
     return render(request, '404.html')
-
 
 # @csrf_exempt
 # def webhook(request):
@@ -141,8 +170,8 @@ def error_handler(request):
 #         'formatted_response': formatted_response,
 #         'prompt': prompt
 #     }
-    
-    
+
+
 #     # return a fulfillment message
 #     fulfillmentText = {'fulfillmentText': formatted_response}
 #     # return response

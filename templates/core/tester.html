@@ -1,126 +1,217 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load api_formatting %}
 {% block title %} Tests Generator {% endblock %}
 
 
 {% block style %}
-<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
-<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-<!-- In the head section of your HTML template -->
-<script src="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.js"></script>
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.css">
-<link rel="stylesheet" href="{% static 'css/chatapp.css' %}">
-<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <!-- In the head section of your HTML template -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.css">
+    <link rel="stylesheet" href="{% static 'css/chatapp.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
 {% endblock %}
 
 {% block content %}
-    <main class="main-content">
-        <div class="container-xl px-4 mt-4">
 
-            <nav class="nav nav-borders">
-                <a class="nav-link active ms-0" href="" target="__blank">Tests Generator</a>
-            </nav>
-            <hr class="mt-0 mb-4">
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-            <div class="row">
-                <div class="col-xl-4">
-        
-                    <div class="card mb-4 mb-xl-0">
-                        <div class="card-header">History</div>
-                        <div class="card-body text-center">
-        
-                            <div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fa fa-search"></i></span>
-								</div>
-								<input type="text" class="form-control" placeholder="Search...">
-							</div>
+    {% if response %}
+
+        <main class="main-content">
+            <div class="container-xl px-4 mt-4">
+
+                <nav class="nav nav-borders">
+                    <a class="nav-link active ms-0" href="" target="__blank">Tests Generator</a>
+                </nav>
+                <hr class="mt-0 mb-4">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-xl-4">
+
+                            <div class="card mb-4 mb-xl-0">
+                                <div class="card-header">History</div>
+                                <div class="card-body text-center">
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                    </div>
+                                </div>
+                                <div id="plist" class="people-list">
+                                    <ul class="list-unstyled chat-list mt-2 mb-0">
+                                        <li class="clearfix">
+                                            <div class="about">
+                                                <div class="name">Vincent Porter</div>
+                                                <div class="status"><i class="fa fa-circle offline"></i> Code Review
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix active">
+                                            <div class="about">
+                                                <div class="name">Aiden Chavez</div>
+                                                <div class="status"><i class="fa fa-circle online"></i> Documentation
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <div class="about">
+                                                <div class="name">Mike Thomas</div>
+                                                <div class="status"><i class="fa fa-circle online"></i> Tests</div>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <div class="about">
+                                                <div class="name">Christian Kelly</div>
+                                                <div class="status"><i class="fa fa-circle offline"></i> Documentation
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
                         </div>
-						<div id="plist" class="people-list">
-							<ul class="list-unstyled chat-list mt-2 mb-0">
-								<li class="clearfix">
-									<div class="about">
-										<div class="name">Vincent Porter</div>
-										<div class="status"><i class="fa fa-circle offline"></i> Code Review</div>
-									</div>
-								</li>
-								<li class="clearfix active">
-									<div class="about">
-										<div class="name">Aiden Chavez</div>
-										<div class="status"><i class="fa fa-circle online"></i> Documentation</div>
-									</div>
-								</li>
-								<li class="clearfix">
-									<div class="about">
-										<div class="name">Mike Thomas</div>
-										<div class="status"><i class="fa fa-circle online"></i> Tests</div>
-									</div>
-								</li>
-								<li class="clearfix">
-									<div class="about">
-										<div class="name">Christian Kelly</div>
-										<div class="status"><i class="fa fa-circle offline"></i> Documentation</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-						
-                    </div>
-                </div>
-                <div class="col-xl-8">
-        
-                    <div class="card mb-4">
-                        <div class="card-header">Tests Generator</div>
-                        <div class="card-body">
-							<div class="mb-3">
-								<label for="{{ code_form.title.id }}" class="form-label">{{ code_form.title.label }}</label>
-								{{ code_form.title }}
-								{% if code_form.title.errors %}
-									<div class="invalid-feedback">{{ code_form.title.errors|join:", " }}</div>
-								{% endif %}
-							</div>
+                        <div class="col-xl-8">
 
-							<div class="mb-3">
-							<label for="{{ code_form.prompt.id }}" class="form-label">{{ code_form.prompt.label }}</label><br/>
-							{{ code_form.prompt }}
-							{% if code_form.prompt.errors %}
-								<div class="invalid-feedback">{{ code_form.prompt.errors|join:", " }}</div>
-							{% endif %}
-						</div>
-						{% comment %} <div class="mb-3">
+                            <div class="card mb-4">
+                                <div class="card-header">Tests Generator</div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div>
+                                            <h2>Generated Tests:</h2>
+                                            <p>{{ last_message | format_code_snippets | safe }}</p>
+                                            <!-- Raw response -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+
+        </main> <!-- .main-content -->
+
+
+
+    {% else %}
+        <main class="main-content">
+            <div class="container-xl px-4 mt-4">
+
+                <nav class="nav nav-borders">
+                    <a class="nav-link active ms-0" href="" target="__blank">Tests Generator</a>
+                </nav>
+                <hr class="mt-0 mb-4">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-xl-4">
+
+                            <div class="card mb-4 mb-xl-0">
+                                <div class="card-header">History</div>
+                                <div class="card-body text-center">
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                    </div>
+                                </div>
+                                <div id="plist" class="people-list">
+                                    <ul class="list-unstyled chat-list mt-2 mb-0">
+                                        <li class="clearfix">
+                                            <div class="about">
+                                                <div class="name">Vincent Porter</div>
+                                                <div class="status"><i class="fa fa-circle offline"></i> Code Review
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix active">
+                                            <div class="about">
+                                                <div class="name">Aiden Chavez</div>
+                                                <div class="status"><i class="fa fa-circle online"></i> Documentation
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <div class="about">
+                                                <div class="name">Mike Thomas</div>
+                                                <div class="status"><i class="fa fa-circle online"></i> Tests</div>
+                                            </div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <div class="about">
+                                                <div class="name">Christian Kelly</div>
+                                                <div class="status"><i class="fa fa-circle offline"></i> Documentation
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xl-8">
+
+                            <div class="card mb-4">
+                                <div class="card-header">Tests Generator</div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="{{ code_form.title.id }}"
+                                               class="form-label">{{ code_form.title.label }}</label>
+                                        {{ code_form.title }}
+                                        {% if code_form.title.errors %}
+                                            <div class="invalid-feedback">{{ code_form.title.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="{{ code_form.prompt.id }}"
+                                               class="form-label">{{ code_form.prompt.label }}</label><br/>
+                                        {{ code_form.prompt }}
+                                        {% if code_form.prompt.errors %}
+                                            <div class="invalid-feedback">{{ code_form.prompt.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                    {% comment %} <div class="mb-3">
 							<label for="{{ code_form.response.id }}" class="form-label">{{ code_form.response.label }}</label>
 							{{ code_form.response }}
 							{% if code_form.response.errors %}
 								<div class="invalid-feedback">{{ code_form.response.errors|join:", " }}</div>
 							{% endif %}
 						</div> {% endcomment %}
-					
-						<div class="mb-3">
-							<label for="{{ code_form.version.id }}" class="form-label">{{ code_form.version.label }}</label>
-							{{ code_form.version }}
-							{% if code_form.version.errors %}
-								<div class="invalid-feedback">{{ code_form.version.errors|join:", " }}</div>
-							{% endif %}
-						</div>
 
-						<button class="btn btn-primary" type="submit">Submit</button>
+                                    <div class="mb-3">
+                                        <label for="{{ code_form.version.id }}"
+                                               class="form-label">{{ code_form.version.label }}</label>
+                                        {{ code_form.version }}
+                                        {% if code_form.version.errors %}
+                                            <div class="invalid-feedback">{{ code_form.version.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
-            </form>
-        </div>
-            
-    </main> <!-- .main-content -->
+
+        </main> <!-- .main-content -->
+    {% endif %}
 {% endblock %}
 
 <script src="https://cdn.ckeditor.com/4.23.0-lts/standard/ckeditor.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         CKEDITOR.replace('prompt');  // Replace 'id_of_your_textarea' with the actual ID of your textarea.
     });
-	document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         CKEDITOR.replace('response');  // Replace 'id_of_your_textarea' with the actual ID of your textarea.
     });
 </script>
