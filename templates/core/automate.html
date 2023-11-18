@@ -4,24 +4,40 @@
 
 
 {% block style %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<!-- In the head section of your HTML template -->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.js"></script>
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.css">
 <link rel="stylesheet" href="{% static 'css/chatapp.css' %}">
 <link rel="stylesheet" href="{% static 'css/chat.css' %}">
 {% endblock %}
 
 {% block content %}
-	<main class="main-content">
-		<div class="container chatap">
-			<div class="row clearfix">
-				<div class="col-lg-12">
-					<div class="card chat-app">
-						<div id="plist" class="people-list">
-							<h2>History</h2>
-							<div class="input-group">
+    <main class="main-content">
+        <div class="container-xl px-4 mt-4">
+
+            <nav class="nav nav-borders">
+                <a class="nav-link active ms-0" href="" target="__blank">Documentation Generator</a>
+            </nav>
+            <hr class="mt-0 mb-4">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+            <div class="row">
+                <div class="col-xl-4">
+        
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header">History</div>
+                        <div class="card-body text-center">
+        
+                            <div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-search"></i></span>
 								</div>
 								<input type="text" class="form-control" placeholder="Search...">
 							</div>
+                        </div>
+						<div id="plist" class="people-list">
 							<ul class="list-unstyled chat-list mt-2 mb-0">
 								<li class="clearfix">
 									<div class="about">
@@ -49,88 +65,62 @@
 								</li>
 							</ul>
 						</div>
-						<div class="chat">
-							<div class="chat-header clearfix">
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="chat-about">
-											<h6 class="m-b-0">Title</h6>
-											<small>Code Review</small>
-										</div>
-									</div>
-									<div class="col-lg-6 hidden-sm text-right">
-										{% comment %} <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
-										<a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a> {% endcomment %}
-										<a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-download"></i></a>
-										<a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-share"></i></a>
-									</div>
-								</div>
+						
+                    </div>
+                </div>
+                <div class="col-xl-8">
+        
+                    <div class="card mb-4">
+                        <div class="card-header">Documentation Generator</div>
+                        <div class="card-body">
+							<div class="mb-3">
+								<label for="{{ code_form.title.id }}" class="form-label">{{ code_form.title.label }}</label>
+								{{ code_form.title }}
+								{% if code_form.title.errors %}
+									<div class="invalid-feedback">{{ code_form.title.errors|join:", " }}</div>
+								{% endif %}
 							</div>
-							<div class="chat-history">
-								<ul class="m-b-0">
-									<div class="message-feed media">
-										<div class="pull-left">
-											<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt class="img-avatar">
-										</div>
-										<div class="media-body">
-											<div class="mf-content">
-												Etiam ex arcumentum
-											</div>
-											<small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 09:33</small>
-										</div>
-									</div>
-									<div class="message-feed right">
-										<div class="media-body">
-											<div class="mf-content">
-												Etiam nec facilisis lacus. Nulla imperdiet augue ullamcorper dui ullamcorper, eu laoreet sem consectetur. Aenean et ligula risus. Praesent sed posuere sem. Cum sociis natoque penatibus et magnis dis parturient montes,
-											</div>
-											<small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 10:10</small>
-										</div>
-										<div class="pull-right">
-											<img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt class="img-avatar">
-										</div>
-									</div>
-									{% comment %} <li class="clearfix row">
-										<div class="message-data">
-											<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-										</div>
-										<div class="message other-message">I need to automate the following code</div>
-									</li>
-									<li class="row">
-										<div class="message-data">
-											<img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="avatar">
-										</div>
-										<div class="message my-message">Please upload the code you would like to automate</div>
-									</li>
-									<li class="row">
-										<div class="message-data">
-											<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-										</div>
-										<div class="message other-message"> 
-											<p>This is a code snippet:</p>
-											<pre>
-												def hello_world():
-													print("Hello, World!")
-											</pre>
-										</div>
-									</li> {% endcomment %}
-								</ul>
-							</div>
-							<div class="chat-message clearfix">
-								<div class="input-group mb-0">
-									<div class="input-group-prepend">
-										<span class="input-group-text"><i class="fa fa-send"></i></span>
-									</div>
-									<input type="text" class="form-control" placeholder="Enter text here...">
-								</div>
-							</div>
+
+							<div class="mb-3">
+							<label for="{{ code_form.prompt.id }}" class="form-label">{{ code_form.prompt.label }}</label><br/>
+							{{ code_form.prompt }}
+							{% if code_form.prompt.errors %}
+								<div class="invalid-feedback">{{ code_form.prompt.errors|join:", " }}</div>
+							{% endif %}
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
+						{% comment %} <div class="mb-3">
+							<label for="{{ code_form.response.id }}" class="form-label">{{ code_form.response.label }}</label>
+							{{ code_form.response }}
+							{% if code_form.response.errors %}
+								<div class="invalid-feedback">{{ code_form.response.errors|join:", " }}</div>
+							{% endif %}
+						</div> {% endcomment %}
+					
+						<div class="mb-3">
+							<label for="{{ code_form.version.id }}" class="form-label">{{ code_form.version.label }}</label>
+							{{ code_form.version }}
+							{% if code_form.version.errors %}
+								<div class="invalid-feedback">{{ code_form.version.errors|join:", " }}</div>
+							{% endif %}
+						</div>
 
-	</main> <!-- .main-content -->
-
+						<button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+            
+    </main> <!-- .main-content -->
 {% endblock %}
+
+<script src="https://cdn.ckeditor.com/4.23.0-lts/standard/ckeditor.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        CKEDITOR.replace('prompt');  // Replace 'id_of_your_textarea' with the actual ID of your textarea.
+    });
+	document.addEventListener('DOMContentLoaded', function() {
+        CKEDITOR.replace('response');  // Replace 'id_of_your_textarea' with the actual ID of your textarea.
+    });
+</script>
