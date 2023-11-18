@@ -43,8 +43,8 @@
 						<ul class="menu">
 							<li class="menu-item {% if request.path == '/' %}current-menu-item{% endif %}"><a href="{% url 'index' %}">Home</a></li>
 							<li class="menu-item {% if request.path == '/about' %}current-menu-item{% endif %}"><a href="{% url 'about' %}">About</a></li>
-							<li class="menu-item {% if request.path == '/community' %}current-menu-item{% endif %}"><a href="{% url 'community:rooms' %}">Community</a></li>
-							<li class="menu-item {% if request.path == '/gallery' %}current-menu-item{% endif %}"><a href="{% url 'gallery' %}">Gallery</a></li>
+							<li class="menu-item {% if request.path == '/services' %}current-menu-item{% endif %}"><a href="{% url 'services' %}">Services</a></li>
+							<li class="menu-item {% if request.path == '/dynamix' %}current-menu-item{% endif %}"><a href="{% url 'dynamix' %}">Dynamix</a></li>
 							<li class="menu-item {% if request.path == '/contact' %}current-menu-item{% endif %}"><a href="{% url 'contact' %}">Contact</a></li>
 							<li class="menu-item {% if request.path == '/team' %}current-menu-item{% endif %}"><a href="{% url 'team' %}">Team</a></li>
 							{% if user.is_authenticated %}

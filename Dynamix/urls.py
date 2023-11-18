@@ -10,11 +10,12 @@ urlpatterns = [
     path('contact', contact, name='contact'),
     path('about', about, name='about'),
     path('team', team, name='team'),
-    path('gallery', gallery, name='gallery'),
+    path('dynamix', dynamix, name='dynamix'),
+    path('services', services, name='services'),
     path('account/', include('account.urls')),
     path('user/', include('user.urls')),
     path('core/', include('core.urls')),
-    path('community/', include('community.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 

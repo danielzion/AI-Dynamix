@@ -1,6 +1,8 @@
 from django import forms
-from user.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
+
+User = get_user_model()
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(
@@ -37,7 +39,7 @@ class RegisterForm(UserCreationForm):
     help_text='Enter Password Again',
     widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'}),
     )
-    check = forms.BooleanField(required = True)
+    check = forms.BooleanField(required = False)
 
     class Meta:
         model = User

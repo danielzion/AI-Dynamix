@@ -8,4 +8,3 @@ User = get_user_model()
 
 
 admin.site.register(Profile)
-admin.site.register(User)

@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Documentation Generator {% endblock %}
+
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/chatapp.css' %}">
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+{% endblock %}
+
+{% block content %}
+	<main class="main-content">
+		<div class="container chatap">
+			<div class="row clearfix">
+				<div class="col-lg-12">
+					<div class="card chat-app">
+						<div id="plist" class="people-list">
+							<h2>History</h2>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-search"></i></span>
+								</div>
+								<input type="text" class="form-control" placeholder="Search...">
+							</div>
+							<ul class="list-unstyled chat-list mt-2 mb-0">
+								<li class="clearfix">
+									<div class="about">
+										<div class="name">Vincent Porter</div>
+										<div class="status"><i class="fa fa-circle offline"></i> Code Review</div>
+									</div>
+								</li>
+								<li class="clearfix active">
+									<div class="about">
+										<div class="name">Aiden Chavez</div>
+										<div class="status"><i class="fa fa-circle online"></i> Documentation</div>
+									</div>
+								</li>
+								<li class="clearfix">
+									<div class="about">
+										<div class="name">Mike Thomas</div>
+										<div class="status"><i class="fa fa-circle online"></i> Tests</div>
+									</div>
+								</li>
+								<li class="clearfix">
+									<div class="about">
+										<div class="name">Christian Kelly</div>
+										<div class="status"><i class="fa fa-circle offline"></i> Documentation</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="chat">
+							<div class="chat-header clearfix">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="chat-about">
+											<h6 class="m-b-0">Title</h6>
+											<small>Code Review</small>
+										</div>
+									</div>
+									<div class="col-lg-6 hidden-sm text-right">
+										{% comment %} <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
+										<a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a> {% endcomment %}
+										<a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-download"></i></a>
+										<a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-share"></i></a>
+									</div>
+								</div>
+							</div>
+							<div class="chat-history">
+								<ul class="m-b-0">
+									<div class="message-feed media">
+										<div class="pull-left">
+											<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt class="img-avatar">
+										</div>
+										<div class="media-body">
+											<div class="mf-content">
+												Etiam ex arcumentum
+											</div>
+											<small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 09:33</small>
+										</div>
+									</div>
+									<div class="message-feed right">
+										<div class="media-body">
+											<div class="mf-content">
+												Etiam nec facilisis lacus. Nulla imperdiet augue ullamcorper dui ullamcorper, eu laoreet sem consectetur. Aenean et ligula risus. Praesent sed posuere sem. Cum sociis natoque penatibus et magnis dis parturient montes,
+											</div>
+											<small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 10:10</small>
+										</div>
+										<div class="pull-right">
+											<img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt class="img-avatar">
+										</div>
+									</div>
+									{% comment %} <li class="clearfix row">
+										<div class="message-data">
+											<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+										</div>
+										<div class="message other-message">I need to automate the following code</div>
+									</li>
+									<li class="row">
+										<div class="message-data">
+											<img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="avatar">
+										</div>
+										<div class="message my-message">Please upload the code you would like to automate</div>
+									</li>
+									<li class="row">
+										<div class="message-data">
+											<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+										</div>
+										<div class="message other-message"> 
+											<p>This is a code snippet:</p>
+											<pre>
+												def hello_world():
+													print("Hello, World!")
+											</pre>
+										</div>
+									</li> {% endcomment %}
+								</ul>
+							</div>
+							<div class="chat-message clearfix">
+								<div class="input-group mb-0">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fa fa-send"></i></span>
+									</div>
+									<input type="text" class="form-control" placeholder="Enter text here...">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+	</main> <!-- .main-content -->
+
+{% endblock %}

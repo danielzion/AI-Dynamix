@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% comment %} {% include 'django/forms/widgets/clearable_file_input.html' %} {% endcomment %}
+
+
+{% block style %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<!-- In the head section of your HTML template -->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.js"></script>
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.css">
+
+{% endblock %}
+
+{% block content %}
+
+<!--/ Intro Single star /-->
+<section class="intro-single">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12 col-lg-8">
+        <div class="title-single-box">
+            <h1 class="title-single">Create New Post</h1>
+            <span class="color-text-a">Grid News</span>
+        </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href=""><i class="fas fa-user-shield"></i>My Post</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href=""><i class="fas fa-user-edit"></i>New Post</a>
+            </li>
+            </ol>
+        </nav>
+        </div>
+    </div>
+    </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ News Grid Star /-->
+<section class="news-grid grid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                      {% comment %} {{form.media}} {% endcomment %}
+                    <div class="mb-3">
+                      {{ code_form.title.label_tag }}
+                      {{ code_form.title }}
+                      {% if code_form.title.errors %}
+                        <div class="invalid-feedback">{{ code_form.title.errors|join:", " }}</div>
+                      {% endif %}
+                    </div>
+                    <div class="mb-3">
+                      {{ code_form.prompt.label_tag }}
+                      {{ code_form.prompt }}
+                      {% if code_form.prompt.errors %}
+                        <div class="invalid-feedback">{{ code_form.prompt.errors|join:", " }}</div>
+                      {% endif %}
+                    </div>
+					{{ code_form.prompt }}
+            
+                    {% comment %} <div class="mb-3">
+                      {{ code_form.images.label_tag }}
+                      {{ code_form.images }}
+                      {% if code_form.images.errors %}
+                        <div class="invalid-feedback">{{ code_form.images.errors|join:", " }}</div>
+                      {% endif %}
+                    </div> {% endcomment %}
+                    {% comment %} <div class="md-3">
+                      {{ code_form.category.label_tag }}
+                      {{ code_form.category }}
+                      {% if code_form.category.errors %}
+                          <div class="invalid-feedback">{{ code_form.category.errors|join:", " }}</div>
+                      {% endif %}
+                  </div>                   {% endcomment %}
+                    <div class="md-3 submit-button">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+
+<!--/ News Grid End /-->
+{% endblock %}
+<script src="https://cdn.ckeditor.com/4.23.0-lts/standard/ckeditor.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        CKEDITOR.replace('response');  // Replace 'id_of_your_textarea' with the actual ID of your textarea.
+    });
+</script>

@@ -18,6 +18,10 @@ def team(request):
     
     return render(request, 'team.html')
 
-def gallery(request):
+def dynamix(request):
     
-    return render(request, 'gallery.html')
+    return render(request, 'dynamix.html')
+
+def services(request):
+    
+    return render(request, 'services.html')

@@ -15,11 +15,15 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Profile',
+            name='OpenAICommand',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(default='default.jpg', upload_to='profile_pics')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('title', models.CharField(max_length=255)),
+                ('prompt', models.TextField()),
+                ('response', models.TextField()),
+                ('date', models.DateTimeField(auto_now_add=True)),
+                ('category', models.CharField(choices=[('Code Review', 'Code Review'), ('Automate', 'Automate'), ('Tester', 'Tester')], max_length=20)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

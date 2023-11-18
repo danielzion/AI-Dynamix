@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Gallery {% endblock %}
+
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/dynamix.css' %}">
+{% endblock %}
+
+{% block content %}
+	<main class="main-content">
+			<div class="container">
+				  <section class="cards-wrapper">
+					<div class="card-grid-space">
+					  <div class="num">01</div>
+					  <a class="card" href="{% url 'core:codehub' %}" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
+						<div>
+						  <h1>AI-Powered Code Review Assistant</h1>
+						  <p>Utilizes the OpenAI API to provide insights and suggestions for code improvements...</p>
+						  {% comment %} <div class="date">6 Oct 2017</div> {% endcomment %}
+						  <div class="tags">
+							<div class="tag">Code Review</div>
+						  </div>
+						</div>
+					  </a>
+					</div>
+					<div class="card-grid-space">
+					  <div class="num">02</div>
+					  <a class="card" href="{% url 'core:automate' %}" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/basic-types-of-html-tags/cover.jpg')">
+						<div>
+						  <h1>Automated Documentation Generator</h1>
+						  <p>Generates comprehensive documentation for the software, streamlining the documentation process...</p>
+						  {% comment %} <div class="date">9 Oct 2017</div> {% endcomment %}
+						  <div class="tags">
+							<div class="tag">Documentation</div>
+						  </div>
+						</div>
+					  </a>
+					</div>
+					<div class="card-grid-space">
+					  <div class="num">03</div>
+					  <a class="card" href="{% url 'core:tester' %}" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/links-images-about-file-paths/cover.jpg')">
+						<div>
+						  <h1>Automated Test Case Generator</h1>
+						  <p>Creates thorough and exhaustive test cases, enhancing testing procedures...</p>
+						  {% comment %} <div class="date">14 Oct 2017</div> {% endcomment %}
+						  <div class="tags">
+							<div class="tag">Testing</div>
+						  </div>
+						</div>
+					  </a>
+					</div>
+					<!-- https://images.unsplash.com/photo-1520839090488-4a6c211e2f94?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=38951b8650067840307cba514b554ba5&auto=format&fit=crop&w=1350&q=80 -->
+				  </section>
+				
+			</div>
+
+	</main> <!-- .main-content -->
+
+{% endblock %}

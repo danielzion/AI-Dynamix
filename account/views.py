@@ -23,7 +23,6 @@ def register(request):
             messages.success(request, 'Account was created for ' + user)
             return redirect('account:login')
         else:
-            print('Form is not valid')
             messages.error(request, 'Error Processing Your Request')
             context = {
                 'form': form

@@ -22,17 +22,17 @@
                 <img src="assets/images/logo.svg" alt="logo" class="logo">
               </div>
               <p class="login-card-description">Sign into your account</p>
-              {% if messages %}
-              <div class="alert alert-danger">
-                  <ul>
-                      {% for message in messages %}
-                      <li>{{ message }}</li>
-                      {% endfor %}
-                  </ul>
-              </div>
-              {% endif %}
               <form action=""  method="POST">
                 {% csrf_token %}
+                {% if messages %}
+                <div class="alert alert-danger form-group">
+                    <ul>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
                   <div class="form-group">
                     <label for="username" class="sr-only">Username</label>
                     {{ form.username }}
@@ -41,7 +41,7 @@
                     <label for="password" class="sr-only">Password</label>
                     {{ form.password }}
                   </div>
-                  <input name="login" id="login" class="btn btn-block login-btn mb-4" type="button" value="Login">
+                  <button type="submit" class="btn btn-block login-btn mb-4">Login</button>
                 </form>
                 <a href="{% url 'account:password_reset' %}" class="forgot-password-link">Forgot password?</a>
                 <p class="login-card-footer-text">Don't have an account? <a href="{% url 'account:register' %}" class="text-reset">Register here</a></p>
