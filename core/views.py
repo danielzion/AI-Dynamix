@@ -7,6 +7,7 @@ import json
 import openai
 from .forms import OpenAICommandForm
 from .models import OpenAICommand
+from django.contrib.auth.decorators import login_required
 
 
 from decouple import config
@@ -79,6 +80,7 @@ def GetFormData(request, code_form, extra_prompt, template, category):
     return chatbot_entry, category
 
 
+@login_required
 def codehub(request):
         
     template = 'core/codehub.html'
@@ -114,6 +116,7 @@ def codehub(request):
         return render(request, template, context)
 
 
+@login_required
 def automate(request):
     template = 'core/automate.html'
     extra_prompt = "Auto-generate comprehensive documentation, connect with external knowledge base, assess Documentation Health Score, pull inline code comments, and include Live Code examples for the provided software code."
@@ -147,6 +150,8 @@ def automate(request):
             # this will render when there is no request POST or after every POST request
         return render(request, template, context)
 
+
+@login_required
 def tester(request):
 
     template = 'core/tester.html'
@@ -182,6 +187,8 @@ def tester(request):
     
     return render(request, template)
 
+
+@login_required
 def result(request, pk, category):
     history = FetchHistory(request, category)
 
@@ -199,39 +206,3 @@ def result(request, pk, category):
 # this is the view for handling errors
 def error_handler(request):
     return render(request, '404.html')
-
-
-# @csrf_exempt
-# def webhook(request):
-#     # build a request object
-#     req = json.loads(request.body)
-#     # get action from json
-#     # action = req.get('queryResult').get('action')
-#     query_input = req.get('queryResult').get('queryText')
-
-#     # message = req['message']
-
-#     # text_input = dialogflow.types.TextInput(text=message, language_code="en-US")
-#     # query_input = dialogflow.types.QueryInput(text=text_input)
-#     # making a request to the API
-#     response = openai.Completion.create(model="text-davinci-003",
-#                                         prompt=query_input,
-#                                         temperature=0.7,
-#                                         max_tokens=150,
-#                                         top_p=1,
-#                                         n=1,
-#                                         frequency_penalty=0,
-#                                         presence_penalty=0.6)
-#     # formatting the response input
-#     formatted_response = response['choices'][0]['text']
-#     # bundling everything in the context
-#     context = {
-#         'formatted_response': formatted_response,
-#         'prompt': prompt
-#     }
-    
-    
-#     # return a fulfillment message
-#     fulfillmentText = {'fulfillmentText': formatted_response}
-#     # return response
-#     return JsonResponse(fulfillmentText, safe=False)

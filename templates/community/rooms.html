@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} About {% endblock %}
+
+{% block content %}
+
+	<main class="main-content">
+        <div class="fullwidth-block content">
+			<div class="container">
+				<h2 class="entry-title">Join any Forum of your choice</h2>
+				<p>Welcome to our vibrant developer community, where collaboration and networking thrive! Join our specialized forums tailored to different technology stacks and connect with fellow developers who share your passion and expertise.</p>
+
+                <p>Whether you're into web development, mobile apps, data science, or any other tech domain, you'll find a dedicated space to exchange ideas, seek advice, and collaborate on exciting projects.</p>
+
+                <p>Our community is a place to break free from the mundane and delve into the world of innovation. Share your experiences, learn from others, and be part of a network that fosters growth and creativity.</p>
+
+                <p>Don't miss out on the opportunity to be a part of a dynamic group of developers who are shaping the future of technology. Join us now and let's build something amazing together!</p>
+				<div class="feature-grid">
+                    {% for room in rooms %}
+					<div class="feature">
+						<img src="{{ room.image.url }}" alt="">
+						<h2 class="feature-title">{{ room.name }}</h2>
+						<p>{{ room.name }}</p>
+                        <a href="{% url 'community:room' room.slug %}" class="button">Join Forum</a>
+					</div>
+                    {% endfor %}
+				</div>
+			</div>
+		</div>
+
+	</main> <!-- .main-content -->
+
+{% endblock %}

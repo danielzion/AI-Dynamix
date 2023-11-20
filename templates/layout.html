@@ -42,11 +42,12 @@
 						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
 						<ul class="menu">
 							<li class="menu-item {% if request.path == '/' %}current-menu-item{% endif %}"><a href="{% url 'index' %}">Home</a></li>
-							<li class="menu-item {% if request.path == '/about' %}current-menu-item{% endif %}"><a href="{% url 'about' %}">About</a></li>
-							<li class="menu-item {% if request.path == '/services' %}current-menu-item{% endif %}"><a href="{% url 'services' %}">Services</a></li>
-							<li class="menu-item {% if request.path == '/dynamix' %}current-menu-item{% endif %}"><a href="{% url 'dynamix' %}">Dynamix</a></li>
+							{% comment %} <li class="menu-item {% if request.path == '/about' %}current-menu-item{% endif %}"><a href="{% url 'about' %}">About</a></li> {% endcomment %}
+							{% comment %} <li class="menu-item {% if request.path == '/services' %}current-menu-item{% endif %}"><a href="{% url 'services' %}">Services</a></li> {% endcomment %}
+							<li class="menu-item {% if request.path == '/dynamix' %}current-menu-item{% endif %}"><a href="{% url 'dynamix' %}">Services</a></li>
+							<li class="menu-item {% if request.path == '/community' %}current-menu-item{% endif %}"><a href="{% url 'community:rooms' %}">Forums</a></li>
 							<li class="menu-item {% if request.path == '/contact' %}current-menu-item{% endif %}"><a href="{% url 'contact' %}">Contact</a></li>
-							<li class="menu-item {% if request.path == '/team' %}current-menu-item{% endif %}"><a href="{% url 'team' %}">Team</a></li>
+							{% comment %} <li class="menu-item {% if request.path == '/team' %}current-menu-item{% endif %}"><a href="{% url 'team' %}">Team</a></li> {% endcomment %}
 							{% if user.is_authenticated %}
 							<li class="menu-item {% if request.path == '/user/profile' %}current-menu-item{% endif %}"><a href="{% url 'user:profile' %}">{{ user.username }}</a></li>
 							
@@ -82,7 +83,7 @@
             <a href="#"><i class="fa fa-pinterest"></i></a>
         </div>
         <div class="copy">
-            <p>Copyright 2014 AI-Dynamix. All rights reserved.</p>
+            <p>Copyright 2023 AI-Dynamix. All rights reserved.</p>
         </div>
     </div>
 </footer> <!-- .site-footer -->

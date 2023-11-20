@@ -143,72 +143,26 @@
                                         <div class="filter-links filterable-nav">
                                             <select class="mobile-filter">
                                                 <option value="*">Show all</option>
-                                                <option value=".code-review">Code Review</option>
-                                                <option value=".documentation">Documentation</option>
-                                                <option value=".tests">Tests</option>
+                                                <option value=".Review">Code Review</option>
+                                                <option value=".Automate">Documentation</option>
+                                                <option value=".Tester">Tests</option>
                                             </select>
                                             <a href="#" class="current wow fadeInRight" data-filter="*">Show all</a>
-                                            <a href="#" class="wow fadeInRight" data-wow-delay=".2s" data-filter=".code-review">Code Review</a>
-                                            <a href="#" class="wow fadeInRight" data-wow-delay=".4s" data-filter=".documentation">Documentation</a>
-                                            <a href="#" class="wow fadeInRight" data-wow-delay=".6s" data-filter=".tests">Tests</a>
+                                            <a href="#" class="wow fadeInRight" data-wow-delay=".2s" data-filter=".Review">Code Review</a>
+                                            <a href="#" class="wow fadeInRight" data-wow-delay=".4s" data-filter=".Automate">Documentation</a>
+                                            <a href="#" class="wow fadeInRight" data-wow-delay=".6s" data-filter=".Tester">Tests</a>
                                         </div>
                                     </div>
                     
                                     <div class="filterable-items">
-                                        <div class="gallery-item filterable-item documentation">
-                                            <a href="dummy/large-gallery/gallery-1.jpg"><figure class="featured-image">
+                                        {% for info in history_data %}
+                                        <div class="gallery-item filterable-item {{ info.category }}">
+                                            <a href="{% url 'core:result' category=info.category pk=info.id %}"><figure class="featured-image">
                                                     <img src="{% static 'dummy/large-gallery/gallery-7.jpg' %}" alt="">
-                                                    <figcaption>Lorem ipsum dolor sit amet</figcaption>
+                                                    <figcaption>{{ info.title }}</figcaption>
                                                 </figure></a>
                                         </div>
-                                        <div class="gallery-item filterable-item documentation">
-                                            <a href="dummy/large-gallery/gallery-2.jpg"><figure class="featured-image">
-                                                    <img src="{% static 'dummy/large-gallery/gallery-7.jpg' %}" alt="">
-                                                    <figcaption>Consectetur adipisicing elit</figcaption>
-                                                </figure></a>
-                                        </div>
-                                        <div class="gallery-item filterable-item tests">
-                                            <a href="dummy/large-gallery/gallery-3.jpg"><figure class="featured-image">
-                                                    <img src="{% static 'dummy/large-gallery/gallery-7.jpg' %}" alt="">
-                                                    <figcaption>Repellat fugit tenetur </figcaption>
-                                                </figure></a>
-                                        </div>
-                                        <div class="gallery-item filterable-item code-review">
-                                            <a href="dummy/large-gallery/gallery-4.jpg"><figure class="featured-image">
-                                                    <img src="{% static 'dummy/large-gallery/gallery-7.jpg' %}" alt="">
-                                                    <figcaption>Asperiores quas voluptatem</figcaption>
-                                                </figure></a>
-                                        </div>
-                                        <div class="gallery-item filterable-item tests">
-                                            <a href="dummy/large-gallery/gallery-5.jpg"><figure class="featured-image">
-                                                    <img src="{% static 'dummy/large-gallery/gallery-7.jpg' %}" alt="">
-                                                    <figcaption>Ex quos ab perspiciatis</figcaption>
-                                                </figure></a>
-                                        </div>
-                                        <div class="gallery-item filterable-item documentation">
-                                            <a href="dummy/large-gallery/gallery-6.jpg"><figure class="featured-image">
-                                                    <img src="{% static 'dummy/large-gallery/gallery-7.jpg' %}" alt="">
-                                                    <figcaption>Natus dolores ad et ipsam</figcaption>
-                                                </figure></a>
-                                        </div>
-                                        <div class="gallery-item filterable-item code-review">
-                                            <a href="dummy/large-gallery/gallery-7.jpg"><figure class="featured-image">
-                                                    <img src="{% static 'dummy/large-gallery/gallery-7.jpg' %}" alt="">
-                                                    <figcaption>Hic nisi. Animi placeat</figcaption>
-                                                </figure></a>
-                                        </div>
-                                        <div class="gallery-item filterable-item test">
-                                            <a href="dummy/large-gallery/gallery-8.jpg"><figure class="featured-image">
-                                                    <img src="{% static 'dummy/large-gallery/gallery-7.jpg' %}" alt="">
-                                                    <figcaption>Obcaecati quam exercitationem</figcaption>
-                                                </figure></a>
-                                        </div>
-                                        <div class="gallery-item filterable-item code-review">
-                                            <a href="dummy/large-gallery/gallery-9.jpg"><figure class="featured-image">
-                                                    <img src="{% static 'dummy/large-gallery/gallery-7.jpg' %}" alt="">
-                                                    <figcaption>quam exercitationem</figcaption>
-                                                </figure></a>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                         
