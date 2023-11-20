@@ -120,32 +120,41 @@ git clone https://github.com/danielzion/AI-Dynamix.git
   
 
   6. Create a virtual environment :
+  ```
     python -m venv venv
+```
 
   
 
   7. Activate the virtual environment :
+  ```
     venv/Scripts/activate
+```
     OR
-    source venv/bin/activate
-
+```
+ source venv/bin/activate
+```
   
 
   8. Install dependencies :  
-    pip install -r requirements.txt
- 
+```
+ pip install -r requirements.txt
+``` 
 
   9. Make migrations:       
-    python manage.py makemigrations
- 
+```
+ python manage.py makemigrations
+```
 
   10. Migrate all models :    
-    python manage.py migrate
-  
+```
+ python manage.py migrate
+```
 
   11. Start Local Server:     
+```
     python manage.py runserver
-  
+```
 
 ## How to Contribute
 
