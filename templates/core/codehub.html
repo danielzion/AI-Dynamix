@@ -39,30 +39,16 @@
                         </div>
 						<div id="plist" class="people-list">
 							<ul class="list-unstyled chat-list mt-2 mb-0">
-								<li class="clearfix">
-									<div class="about">
-										<div class="name">Vincent Porter</div>
-										<div class="status"><i class="fa fa-circle offline"></i> Code Review</div>
-									</div>
-								</li>
-								<li class="clearfix active">
-									<div class="about">
-										<div class="name">Aiden Chavez</div>
-										<div class="status"><i class="fa fa-circle online"></i> Documentation</div>
-									</div>
-								</li>
-								<li class="clearfix">
-									<div class="about">
-										<div class="name">Mike Thomas</div>
-										<div class="status"><i class="fa fa-circle online"></i> Tests</div>
-									</div>
-								</li>
-								<li class="clearfix">
-									<div class="about">
-										<div class="name">Christian Kelly</div>
-										<div class="status"><i class="fa fa-circle offline"></i> Documentation</div>
-									</div>
-								</li>
+								{% for info in history %}
+									<li class="clearfix {% cycle 'even' 'odd' %}">
+										<div class="about">
+											<div class="name"><a href="{% url 'core:result' category=info.category pk=info.id %}">{{ info.title }}</a></div>
+											<div class="status">
+												<i class="fa fa-circle {% cycle 'offline' 'online' %}"></i> {{ info.version }}
+											</div>
+										</div>
+									</li>
+								{% endfor %}
 							</ul>
 						</div>
 						

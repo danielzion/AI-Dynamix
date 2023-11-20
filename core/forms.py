@@ -11,16 +11,18 @@ CATEGORY_CHOICES = [
 class OpenAICommandForm(forms.ModelForm):
 
     category = forms.ChoiceField(
-        choices=CATEGORY_CHOICES
+        choices=CATEGORY_CHOICES,
+        required=False
     )
 
     class Meta:
         model = OpenAICommand
-        fields = ['title', 'prompt', 'response', 'category', 'version']
+        fields = ['title', 'prompt', 'category', 'version']
+        # fields = ['title', 'prompt', 'response', 'category', 'version']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'prompt': forms.CharField(widget=forms.Textarea(attrs={'id': 'prompt'})),
-            'response': forms.CharField(widget=forms.Textarea(attrs={'id': 'response'})),
+            # 'response': forms.CharField(widget=forms.Textarea(attrs={'id': 'response'})),
             'version': forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
