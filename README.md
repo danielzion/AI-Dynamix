@@ -7,7 +7,7 @@
 
 # AI-Dynamix
 
-![Live-Demo]([https://](https://aidynamix.pythonanywhere.com/))
+Visit the [live server](https://aidynamix.pythonanywhere.com/) to see the project in action.
 
 AI-Dynamix is a Team project. This App is intended to be an All-in-one AI Code Assistant, which makes use of OpenAI API. The OpenAI API is a powerful tool that leverages state-of-the-art artificial intelligence to perform a wide array of tasks, including natural language processing, text generation, content classification, language translation, and more. This API harnesses advanced machine learning models to comprehend, generate, and manipulate text, enabling developers to create applications for tasks like content generation, question-answering systems, language understanding, and even creative writing..
  
