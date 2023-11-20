@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Documentation Generator {% endblock %}
+
+{% block style %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<!-- In the head section of your HTML template -->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.js"></script>
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/34.0.1/classic/ckeditor.css">
+<link rel="stylesheet" href="{% static 'css/chatapp.css' %}">
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+{% endblock %}
+
+{% block content %}
+	<main class="main-content">
+		<div class="container chatap">
+			<div class="row clearfix">
+				<div class="col-lg-12">
+					<div class="card chat-app">
+						{% comment %} <div id="plist" class="people-list">
+							<h2>History</h2>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-search"></i></span>
+								</div>
+								<input type="text" class="form-control" placeholder="Search...">
+							</div>
+							<ul class="list-unstyled chat-list mt-2 mb-0">
+								<li class="clearfix">
+									<div class="about">
+										<div class="name">Vincent Porter</div>
+										<div class="status"><i class="fa fa-circle offline"></i> Code Review</div>
+									</div>
+								</li>
+								<li class="clearfix active">
+									<div class="about">
+										<div class="name">Aiden Chavez</div>
+										<div class="status"><i class="fa fa-circle online"></i> Documentation</div>
+									</div>
+								</li>
+								<li class="clearfix">
+									<div class="about">
+										<div class="name">Mike Thomas</div>
+										<div class="status"><i class="fa fa-circle online"></i> Tests</div>
+									</div>
+								</li>
+								<li class="clearfix">
+									<div class="about">
+										<div class="name">Christian Kelly</div>
+										<div class="status"><i class="fa fa-circle offline"></i> Documentation</div>
+									</div>
+								</li>
+							</ul>
+						</div> {% endcomment %}
+						<div class="chat">
+							<div class="chat-header clearfix">
+								<div class="row">
+                                    <div class="col-lg-6">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                        </a>
+                                        <div class="chat-about">
+                                            <h6 class="m-b-0">Aiden Chavez</h6>
+                                            <small>Last seen: 2 hours ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 hidden-sm text-right">
+                                        <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
+                                    </div>
+                                </div>
+                                <div class="chat-history">
+                                    <ul class="m-b-0">
+                                        {% for m in messag %}
+                                        {% if m.user == request.user %}
+                                        <li class="clearfix">
+                                            <div class="message-data">
+                                                <span class="message-data-time">{{ m.date_added|date:'g:i A' }}</span>
+                                            </div>
+                                            <div class="message my-message">{{ m.content }}</div>
+                                        </li>
+                                        {% else %}
+                                        <li class="clearfix">
+                                            <div class="message-data text-right">
+                                                <span class="message-data-time">{{ m.date_added|date:'g:i A' }}</span>
+                                                <img src="{{ m.user.profile.image.url }}" alt="{{ m.user.username }}">
+                                            </div>
+                                            <div class="message other-message float-right"> {{ m.content }} </div>
+                                        </li>
+                                        
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="chat-message clearfix">
+                                    <div class="input-group mb-0">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-send"></i></span>
+                                        </div>
+                                        
+                                        <input type="text" class="form-control" placeholder="Enter text here...">
+                                    </div>
+								</div>
+							</div>						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+	</main> <!-- .main-content -->
+
+{% endblock %}
+
+
+{% block scripts %}
+{{ room.slug|json_script:"json-roomname" }}
+{{ request.user.username|json_script:"json-username" }}
+
+<script>
+    const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+    const userName = JSON.parse(document.getElementById('json-username').textContent);
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/'
+        + roomName
+        + '/'
+    );
+
+
+    chatSocket.onclose = function(e) {
+        console.log('onclose')
+    }
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+    
+        if (data.message) {
+            const messageClass = data.username === userName ? 'message self' : 'message';
+            document.querySelector('#chat-messages').innerHTML += (`
+            <div class="${messageClass}">
+                <div class="message-avatar">
+                    <img src="${data.avatar_url}" alt="${data.username}">
+                </div>
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="username">${data.username}</span>
+                        <span class="timestamp">${data.timestamp}</span>
+                    </div>
+                    <div class="message-text">${data.message}</div>
+                </div>
+            </div>
+        `);
+        } else {
+            alert('The message was empty!')
+        }
+    
+        scrollToBottom();
+    };
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        e.preventDefault()
+
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value.trim();
+
+        if (message === '') {
+            alert('Please enter a message.');
+            return;
+        }
+
+        console.log({
+            'message': message,
+            'username': userName,
+            'room': roomName
+        })
+
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'username': userName,
+            'room': roomName
+        }));
+
+        messageInputDom.value = '';
+
+        return false
+    };
+
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value.trim();
+    
+            if (message === '') {
+                alert('Please enter a message.');
+                return;
+            }
+    
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+    
+
+    /**
+    * A function for finding the messages element, and scroll to the bottom of it.
+    */
+    function scrollToBottom() {
+        let objDiv = document.getElementById("chat-messages");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
+    // Add this below the function to trigger the scroll on load.
+    scrollToBottom();
+</script>
+{% endblock %}

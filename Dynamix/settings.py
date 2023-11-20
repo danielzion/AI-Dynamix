@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'account',
     'user',
     'core',
+    'channels',
+    'community'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Dynamix.wsgi.application'
 
+ASGI_APPLICATION = 'Dynamix.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

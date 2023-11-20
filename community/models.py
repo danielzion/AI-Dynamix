@@ -1,9 +1,12 @@
 from user.models import User
 from django.db import models
+from django.utils.text import slugify
 
 class Room(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
+    image = models.ImageField(upload_to='room_images/', null=True, blank=True)
+    description = models.TextField()
 
     def __str__(self):
         return self.name

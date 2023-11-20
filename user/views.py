@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, ProfileUpdateForm
 from .models import Profile
+from core.models import OpenAICommand
 
 @login_required
 def profile(request):
@@ -25,10 +26,12 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=profile)
+        history_data  = OpenAICommand.objects.filter(user=request.user).order_by('date')
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'history_data': history_data
     }
 
     return render(request, 'user/profile.html', context)
